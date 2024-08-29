@@ -1,0 +1,15 @@
+parameters:
+    level: 7
+    paths:
+        - extensions/composer_linter/src
+        - extensions/jest_unit_test_engine/src
+        - extensions/multi_test_engine/src
+        - extensions/phpstan_linter/src
+    bootstrapFiles: 
+        #- ./vendor/phorgeit/arcanist/scripts/__init_script__.php
+        #- ./phpstan-bootstrap.php
+    ignoreErrors:
+        -
+            identifier: missingType.iterableValue
+        # phutil_split_lines specifies "list" return type rather than "array"
+        #- '#Argument of an invalid type list supplied for foreach, only iterables are supported.#'
