@@ -26,6 +26,9 @@
       }
     }
   ],
+  "require": {
+    "ptlis/diff-parser": "^0.6.0"
+  },
   "require-dev": {
     "diablomedia/php-cs-fixer-config": "^2.1.0",
     "phorgeit/arcanist": "1.0.0",
@@ -33,10 +36,7 @@
   },
   "autoload-dev": {
     "classmap": [
-      "extensions/composer_linter/src/ComposerLinter.php",
-      "extensions/jest_unit_test_engine/src/JestUnitTestEngine.php",
-      "extensions/multi_test_engine/src/MultiTestEngine.php",
-      "extensions/phpstan_linter/src/PhpstanLinter.php",
+      "extensions/",
       "vendor/phorgeit/arcanist/src/"
     ]
   },

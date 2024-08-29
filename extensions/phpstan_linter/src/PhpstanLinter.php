@@ -175,7 +175,7 @@ final class PhpstanLinter extends ArcanistLinter
     public function getVersion()
     {
         if ($this->phpstanVersion === null) {
-            [$stdout] = execx('%C --version', $this->getExecutableCommand());
+            list($stdout) = execx('%C --version', $this->getExecutableCommand());
 
             $matches = [];
             $regex   = '/(?P<version>\d+\.\d+\.\d+)/';
@@ -270,6 +270,11 @@ final class PhpstanLinter extends ArcanistLinter
             $this->processing = true;
 
             $phpstanVersion = $this->getVersion();
+            if (!$phpstanVersion) {
+                throw new Exception(
+                    pht('Unable to determine phpstan version. Please check your installation.')
+                );
+            }
 
             $flags = array_merge($this->getMandatoryFlags(), nonempty($this->flags, $this->getDefaultFlags()));
 
@@ -288,7 +293,7 @@ final class PhpstanLinter extends ArcanistLinter
             $future = new ExecFuture('%C %C', $bin, $paths);
             $future->setCWD($this->getProjectRoot());
 
-            [$err, $stdout, $stderr] = $future->resolve();
+            list($err, $stdout, $stderr) = $future->resolve();
 
             $this->parseLinterOutput($err, $stdout, $stderr);
 
@@ -347,6 +352,12 @@ final class PhpstanLinter extends ArcanistLinter
         ];
 
         $phpstanVersion = $this->getVersion();
+
+        if (!$phpstanVersion) {
+            throw new Exception(
+                pht('Unable to determine phpstan version. Please check your installation.')
+            );
+        }
 
         if (version_compare('0.11', $phpstanVersion) <= 0) {
             array_push($flags, '--error-format=checkstyle');

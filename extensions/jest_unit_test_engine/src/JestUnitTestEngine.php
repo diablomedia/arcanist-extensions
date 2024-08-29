@@ -2,13 +2,22 @@
 
 final class JestUnitTestEngine extends ArcanistUnitTestEngine
 {
-    public const FORCE_ALL_FLAG = 'forceAll';
+    const FORCE_ALL_FLAG = 'forceAll';
 
-    private array $affectedTests = [];
+    /**
+     * @var array
+     */
+    private $affectedTests = [];
 
-    private string $command = '';
+    /**
+     * @var string
+     */
+    private $command = '';
 
-    private string $projectRoot;
+    /**
+     * @var string
+     */
+    private $projectRoot;
 
     public function buildTestFuture(): ExecFuture
     {
@@ -40,7 +49,7 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
     /**
      * @param String $include
      *
-     * @return array|false
+     * @return array
      */
     public function getIncludedFiles($include)
     {
@@ -98,7 +107,7 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
     }
 
     /**
-     * @param Object $json_result
+     * @param array $json_result
      *
      * @return array
      */
@@ -175,8 +184,8 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
             }
         }
 
-        $future                  = $this->buildTestFuture();
-        [$err, $stdout, $stderr] = $future->resolve();
+        $future                      = $this->buildTestFuture();
+        list($err, $stdout, $stderr) = $future->resolve();
 
         // If we are running coverage the output includes a visual (non-JSON) representation
         // If that exists then exclude it before parsing the JSON.

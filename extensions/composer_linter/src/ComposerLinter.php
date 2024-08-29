@@ -265,8 +265,8 @@ final class ComposerLinter extends ArcanistExternalLinter
                         if ($length < 1) {
                             $length = 1;
                         }
-                        [$before] = str_split($contents, $length);
-                        $lineNum  = substr_count($before, "\n") + 1;
+                        list($before) = str_split($contents, $length);
+                        $lineNum      = substr_count($before, "\n") + 1;
                         $message->setLine($lineNum);
                     } else {
                         echo "arc-composer: Could not find match for regex: " . $keyRegex . "\n";
