@@ -21,7 +21,7 @@ phutil_register_library_map(array(
     'ComposerLinter' => 'ArcanistExternalLinter',
     'JestUnitTestEngine' => 'ArcanistUnitTestEngine',
     'MultiTestEngine' => 'ArcanistUnitTestEngine',
-    'PhpCsFixerLinter' => '\\ArcanistExternalLinter',
+    'PhpCsFixerLinter' => 'ArcanistExternalLinter',
     'PhpstanLinter' => 'ArcanistLinter',
   ),
 ));

@@ -1,6 +1,6 @@
 <?php
 
-class PhpCsFixerLinter extends \ArcanistExternalLinter
+class PhpCsFixerLinter extends ArcanistExternalLinter
 {
     /**
      * @var string Config file path
