@@ -1,3 +1,4 @@
 /vendor/
 .phutil_module_cache
 .php_cs.cache
+composer.lock
