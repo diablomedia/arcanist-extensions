@@ -190,7 +190,7 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
         // If we are running coverage the output includes a visual (non-JSON) representation
         // If that exists then exclude it before parsing the JSON.
         $json_start_index = strpos($stdout, '{"');
-        $json_string      = substr($stdout, $json_start_index);
+        $json_string      = substr($stdout, (int) $json_start_index);
 
         try {
             $json_result = phutil_json_decode($json_string);
@@ -254,7 +254,12 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
                 continue;
             }
 
-            $lineCount      = count(file($file));
+            $lines = file($file);
+            if ($lines === false) {
+                continue;
+            }
+            $lineCount = count($lines);
+            /** @var string $file */
             $file           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $file);
             $reports[$file] = str_repeat('U', $lineCount); // not covered by default
 

@@ -6,13 +6,13 @@
  * @generated
  * @phutil-library-version 2
  */
-phutil_register_library_map([
+phutil_register_library_map(array(
   '__library_version__' => 2,
-  'class'               => [
+  'class' => array(
     'JestUnitTestEngine' => 'src/JestUnitTestEngine.php',
-  ],
-  'function' => [],
-  'xmap'     => [
+  ),
+  'function' => array(),
+  'xmap' => array(
     'JestUnitTestEngine' => 'ArcanistUnitTestEngine',
-  ],
-]);
+  ),
+));

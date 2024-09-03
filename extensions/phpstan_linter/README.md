@@ -1,9 +1,6 @@
-Based on [material-foundation/arc-tslint](https://github.com/material-foundation/arc-tslint) and some improvements made in [sascha-egerer/arc-phpstan](https://github.com/sascha-egerer/arc-phpstan). Provides basic support for `arc lint` to execute `phpstan`.
+# PHPStan Arcanist Extension
 
-# arc-phpstan
-
-Use [phpstan](https://github.com/phpstan/phpstan) to lint your PHP source code with
-[Phabricator](http://phabricator.org)'s `arc` command line tool.
+Use [phpstan](https://github.com/phpstan/phpstan) to lint your PHP source code with [Phabricator](http://phabricator.org)'s `arc` command line tool.
 
 ## Features
 
@@ -33,36 +30,15 @@ phpstan is required. You can follow the [official instructions](https://github.c
 
 ### Project-specific installation
 
-You can add this repository as a git submodule. Add a path to the submodule in your `.arcconfig`
-like so:
+If you've installed the `diablomedia/arcanist-extensions` package with composer, can just add a line to your `.arcconfig` to load the extension.
 
 ```json
 {
-  "load": ["path/to/arc-phpstan"]
+  "load": ["vendor/diablomedia/arcanist-extensions/extensions/phpstan_linter"]
 }
 ```
 
-### Global installation
-
-`arcanist` can load modules from an absolute path. But it also searches for modules in a directory
-up one level from itself.
-
-You can clone this repository to the same directory where `arcanist` and `libphutil` are located.
-In the end it will look like this:
-
-```sh
-arcanist/
-arc-phpstan/
-libphutil/
-```
-
-Your `.arcconfig` would look like
-
-```json
-{
-  "load": ["arc-phpstan"]
-}
-```
+Otherwise, just change the path to where you cloned this repository (or location of the sub-module, etc...)
 
 ## Setup
 
@@ -83,6 +59,6 @@ To use the linter you must register it in your `.arclint` file, as in this examp
 }
 ```
 
-## License
+## Acknowledgements
 
-Licensed under the Apache 2.0 license. See LICENSE for details.
+Based on [material-foundation/arc-tslint](https://github.com/material-foundation/arc-tslint) and some improvements made in [sascha-egerer/arc-phpstan](https://github.com/sascha-egerer/arc-phpstan). Provides basic support for `arc lint` to execute `phpstan`. [Forked](https://github.com/diablomedia/arc-phpstan/tree/run-once) from [appsinet/arc-phpstan](https://github.com/appsinet/arc-phpstan) to change the execution method to run phpstan against all source files, otherwise dependencies could be missed if it just runs on the modified files.

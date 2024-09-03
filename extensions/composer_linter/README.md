@@ -1,4 +1,4 @@
-# arc-composer
+# Arcanist Composer Linter
 
 Composer linter for Arcanist.
 
@@ -10,7 +10,7 @@ Add the load path to your `.arcconfig`:
 
 ```json
 {
-  "load": ["vendor/diablomedia/arcanist-extensions/composer_linter"]
+  "load": ["vendor/diablomedia/arcanist-extensions/extensions/composer_linter"]
 }
 ```
 
@@ -23,7 +23,7 @@ Add the linter to your `.arclint` file. It is recommended to include both your `
   "linters": {
     "composer": {
       "bin": ["/usr/local/bin/composer"],
-      "type": "diablomedia-composer-linter",
+      "type": "composer-linter",
       "include": ["(^composer.json$)", "(^composer.lock$)"],
       "strict": "false"
     }

@@ -75,7 +75,7 @@ final class ComposerLinter extends ArcanistExternalLinter
      */
     public function getLinterConfigurationName()
     {
-        return 'diablomedia-composer';
+        return 'composer';
     }
 
     /**
@@ -242,6 +242,7 @@ final class ComposerLinter extends ArcanistExternalLinter
                 // See if regex applies to this line
                 if (preg_match('|' . $regex . '|', $line)) {
                     // Run the regex replace on the line to deal with $1 tokens if necessary
+                    /** @var string|null $replaceKey */
                     $replaceKey = preg_replace('|' . $regex . '|', $replaceKey, $line);
 
                     // Load the JSON config file

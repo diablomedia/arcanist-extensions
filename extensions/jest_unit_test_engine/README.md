@@ -1,8 +1,8 @@
-# arc-jest
+# Arcanist Jest Unit Test Engine
 
 Arcanist/Phabricator unit test engine for Jest
 
-### Config options
+## Config options
 
 | Property    | Description                                   | Default                   | Since version |
 | ----------- | --------------------------------------------- | ------------------------- | ------------- |
@@ -11,7 +11,7 @@ Arcanist/Phabricator unit test engine for Jest
 | `bin`       | Binary that should be used to run tests       | `/node_modules/.bin/jest` | `0.0.2`       |
 | `forceAll`  | Force all tests to run on each diff           | `fasle`                   | `0.0.5`       |
 
-#### Sample .arcconfig
+### Sample .arcconfig
 
 ```json
 {
@@ -26,3 +26,7 @@ Arcanist/Phabricator unit test engine for Jest
   }
 }
 ```
+
+## Acknowledgements
+
+Original repository: https://github.com/VISIT-X/arc-jest - brought into this repository to make it easier to install via composer and to continue maintenance.

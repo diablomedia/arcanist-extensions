@@ -383,10 +383,11 @@ final class PhpstanLinter extends ArcanistLinter
     protected function parseLinterOutput(mixed $err, mixed $stdout, mixed $stderr): void
     {
         if (!empty($stdout)) {
-            $stdout           = substr($stdout, strpos($stdout, '<?xml'));
+            $stdout           = substr($stdout, (int) strpos($stdout, '<?xml'));
             $checkstyleOutput = new SimpleXMLElement($stdout);
             $files            = $checkstyleOutput->xpath('//file');
             foreach ($files as $file) {
+                /** @var string $path */
                 $path  = str_replace($this->getProjectRoot() . '/', '', $file['name']);
                 $error = $file->error;
                 if (!isset($this->results[$path])) {
