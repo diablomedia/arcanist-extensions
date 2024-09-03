@@ -9,10 +9,10 @@
 phutil_register_library_map(array(
   '__library_version__' => 2,
   'class' => array(
-    'ComposerLinter' => 'src/ComposerLinter.php',
+    'ComposerValidateLinter' => 'src/ComposerLinter.php',
   ),
   'function' => array(),
   'xmap' => array(
-    'ComposerLinter' => 'ArcanistExternalLinter',
+    'ComposerValidateLinter' => 'ArcanistExternalLinter',
   ),
 ));

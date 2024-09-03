@@ -1,6 +1,6 @@
-# Arcanist Composer Linter
+# Arcanist Composer Validate Linter
 
-Composer linter for Arcanist.
+Composer validate linter for Arcanist.
 
 This validates composer.json/composer.lock files using `composer validate`.
 
@@ -10,7 +10,9 @@ Add the load path to your `.arcconfig`:
 
 ```json
 {
-  "load": ["vendor/diablomedia/arcanist-extensions/extensions/composer_linter"]
+  "load": [
+    "vendor/diablomedia/arcanist-extensions/extensions/composer_validate_linter"
+  ]
 }
 ```
 

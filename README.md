@@ -25,7 +25,7 @@ If you don't want to enable all of the extensions in your config (technically th
 ```json
 {
   "load": [
-    "vendor/diablomedia/arcanist-extensions/extensions/composer_linter",
+    "vendor/diablomedia/arcanist-extensions/extensions/composer_validate_linter",
     "vendor/diablomedia/arcanist-extensions/extensions/phpstan_linter"
   ]
 }
@@ -36,7 +36,7 @@ To configure the extension to run in your arcanist project, please reference eac
 ## Extensions Included
 
 - Linters
-  - [Composer](extensions/composer_linter/README.md) - For composer.json and composer.lock files (using `composer --validate` command)
+  - [Composer Validate](extensions/composer_validate_linter/README.md) - Validate composer.json and composer.lock files (using `composer --validate` command)
   - [PHP CS Fixer](extensions/php_cs_fixer_linter/README.md) - Runs [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
   - [PHPStan](extensions/phpstan_linter/README.md) - Runs [PHPStan](https://github.com/phpstan/phpstan)
 - Unit Test Engines

@@ -1,6 +1,6 @@
 <?php
 
-final class ComposerLinter extends ArcanistExternalLinter
+final class ComposerValidateLinter extends ArcanistExternalLinter
 {
     /**
      * @var array A list of messages to ignore
