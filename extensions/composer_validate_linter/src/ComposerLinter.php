@@ -29,8 +29,7 @@ final class ComposerValidateLinter extends ArcanistExternalLinter
         '^Defining (autoload.*) with an empty namespace prefix is a bad idea for performance$'       => '$1',
         '^Description for non-existent script "(.*)" found in "scripts-descriptions"$'               => 'scripts-descriptions.$1',
         '^The property (.*) is not defined and the definition does not allow additional properties$' => '$1',
-
-        '^([^ ]+) : .*' => '$1',
+        '^([^ ]+) : .*'                                                                              => '$1',
     ];
 
     /**
