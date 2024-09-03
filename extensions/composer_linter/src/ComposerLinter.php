@@ -75,7 +75,7 @@ final class ComposerLinter extends ArcanistExternalLinter
      */
     public function getLinterConfigurationName()
     {
-        return 'composer';
+        return 'composer-validate';
     }
 
     /**

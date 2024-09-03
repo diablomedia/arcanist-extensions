@@ -23,7 +23,7 @@ Add the linter to your `.arclint` file. It is recommended to include both your `
   "linters": {
     "composer": {
       "bin": ["/usr/local/bin/composer"],
-      "type": "composer-linter",
+      "type": "composer-validate",
       "include": ["(^composer.json$)", "(^composer.lock$)"],
       "strict": "false"
     }
