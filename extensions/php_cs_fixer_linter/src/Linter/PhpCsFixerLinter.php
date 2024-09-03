@@ -51,12 +51,12 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
         return 'By installing this package, you\'ve already installed all dependencies!';
     }
 
-    public function getLinterConfigurationName()
+    public function getLinterConfigurationName(): string
     {
         return 'php-cs-fixer';
     }
 
-    public function getLinterConfigurationOptions()
+    public function getLinterConfigurationOptions(): array
     {
         $options = [
             'config' => [
@@ -69,7 +69,7 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
         return $options + parent::getLinterConfigurationOptions();
     }
 
-    public function getLinterName()
+    public function getLinterName(): string
     {
         return 'php-cs-fixer';
     }
@@ -126,7 +126,7 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
         return $messages;
     }
 
-    public function setLinterConfigurationValue($key, $value): void
+    public function setLinterConfigurationValue(mixed $key, mixed $value): void
     {
         switch ($key) {
             case 'config':
@@ -138,7 +138,7 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
         }
     }
 
-    public function shouldExpectCommandErrors()
+    public function shouldExpectCommandErrors(): bool
     {
         return true;
     }

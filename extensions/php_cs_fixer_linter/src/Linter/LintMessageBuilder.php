@@ -12,7 +12,7 @@ class LintMessageBuilder
      */
     private $guessMessages;
 
-    public function __construct($guessMessages = false)
+    public function __construct(bool $guessMessages = false)
     {
         $this->guessMessages = $guessMessages;
     }
@@ -33,7 +33,7 @@ class LintMessageBuilder
      * @param int $line
      * @return ArcanistLintMessage
      */
-    private function createLintMessage($path, array $diffPart, $line, array $fixData)
+    private function createLintMessage(string $path, array $diffPart, $line, array $fixData)
     {
         $message = $this->getPartialLintMessage($path, $line, $fixData['appliedFixers']);
 
@@ -68,7 +68,7 @@ class LintMessageBuilder
         return $message;
     }
 
-    private function doBuildLintMessages($path, array $fixData)
+    private function doBuildLintMessages(string $path, array $fixData): array
     {
         $changeSet = (new Parser())->parseLines(explode("\n", $fixData['diff']));
 
@@ -181,7 +181,7 @@ class LintMessageBuilder
         return $message;
     }
 
-    private function getTrimmedAppliedFixers(array $appliedFixers)
+    private function getTrimmedAppliedFixers(array $appliedFixers): string
     {
         $fixers = implode(', ', $appliedFixers);
         if (strlen($fixers) > 255) {
@@ -198,7 +198,11 @@ class LintMessageBuilder
     private function guessMessages($path, array $fixData)
     {
         $diffParts = $this->extractDiffParts($fixData['diff']);
-        $rows      = array_map('trim', file($path));
+        $lines     = file($path);
+        if ($lines === false) {
+            return [];
+        }
+        $rows = array_map('trim', $lines);
 
         $messages = [];
         for ($i = 0; $i < count($rows); $i++) {
@@ -306,7 +310,7 @@ class LintMessageBuilder
         array_splice($parts, $index, 1, [$part1, $part2]);
     }
 
-    private function splitCombinedDiffs(array $parts)
+    private function splitCombinedDiffs(array $parts): array
     {
         foreach ($parts as $key => $lines) {
             $removals       = 0;
