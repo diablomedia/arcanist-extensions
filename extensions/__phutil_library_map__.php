@@ -15,6 +15,7 @@ phutil_register_library_map(array(
     'MultiTestEngine' => 'multi_test_engine/src/MultiTestEngine.php',
     'PhpCsFixerLinter' => 'php_cs_fixer_linter/src/Linter/PhpCsFixerLinter.php',
     'PhpstanLinter' => 'phpstan_linter/src/PhpstanLinter.php',
+    'VitestUnitTestEngine' => 'vitest_unit_test_engine/src/VitestUnitTestEngine.php',
   ),
   'function' => array(),
   'xmap' => array(
@@ -23,5 +24,6 @@ phutil_register_library_map(array(
     'MultiTestEngine' => 'ArcanistUnitTestEngine',
     'PhpCsFixerLinter' => 'ArcanistExternalLinter',
     'PhpstanLinter' => 'ArcanistLinter',
+    'VitestUnitTestEngine' => 'ArcanistUnitTestEngine',
   ),
 ));

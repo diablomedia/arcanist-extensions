@@ -41,6 +41,7 @@ To configure the extension to run in your arcanist project, please reference eac
   - [PHPStan](extensions/phpstan_linter/README.md) - Runs [PHPStan](https://github.com/phpstan/phpstan)
 - Unit Test Engines
   - [Jest](extensions/jest_unit_test_engine/README.md) - Runs [Jest](https://github.com/jestjs/jest) (for Javascript tests) and processes coverage report
+  - [Vitest](extensions/vitest_unit_test_engine/README.md) - Runs [Vitest](https://github.com/vitest-dev/vitest) (for Javascript tests) and processes coverage report
   - [Multi Test Engine](extensions/multi_test_engine/README.md) - Allows configuration of multiple unit test engines (useful for repositories that contain tests for different languages, i.e. PHP and JS for a repo that contains server-side (PHP) and client side (Javascript) tests)
 
 ## Acknowledgements
