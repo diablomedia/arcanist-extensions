@@ -201,7 +201,7 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
         // vitest stores the coverage data in a separate file, need to read that
         // in and process that, which differs a little bit between the different
         // coverage providers.
-        $coverageDir = $this->getUnitConfigValue('coverage.dir', 'coverage');
+        $coverageDir = $this->getUnitConfigValue('coverage.reportsDirectory', 'coverage');
         if (!$coverageDir) {
             return [];
         }

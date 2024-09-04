@@ -8,12 +8,13 @@ You'll need to make sure that you have Vitest installed and configured for your 
 
 ## Config options
 
-| Property            | Description                                     | Default                              |
-| ------------------- | ----------------------------------------------- | ------------------------------------ |
-| `include`           | Paths that should be used for tests detection   | `""`                                 |
-| `bin`               | Binary that should be used to run tests         | `/node_modules/.bin/vitest --silent` |
-| `forceAll`          | Force all tests to run on each diff             | `false`                              |
-| `coverage.provider` | Provider used for coverage ('v8' or 'istanbul') | `v8`                                 |
+| Property                    | Description                                     | Default                             |
+| --------------------------- | ----------------------------------------------- | ----------------------------------- |
+| `include`                   | Paths that should be used for tests detection   | `""`                                |
+| `bin`                       | Binary that should be used to run tests         | `node_modules/.bin/vitest --silent` |
+| `forceAll`                  | Force all tests to run on each diff             | `false`                             |
+| `coverage.provider`         | Provider used for coverage ('v8' or 'istanbul') | `v8`                                |
+| `coverage.reportsDirectory` | Location coverage JSON is written to            | `coverage`                          |
 
 ### Sample .arcconfig
 
