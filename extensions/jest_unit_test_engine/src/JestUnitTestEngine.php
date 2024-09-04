@@ -66,27 +66,6 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
     }
 
     /**
-     * @param string $path
-     *
-     * @return array
-     */
-    public function getSearchLocationsForTests($path)
-    {
-        $test_dir_names = $this->getUnitConfigValue('test.dirs');
-        $test_dir_names = !empty($test_dir_names) ? $test_dir_names : ['tests', 'Tests'];
-
-        // including 5 levels of sub-dirs
-        foreach ($test_dir_names as $dir) {
-            $test_dir_names[] = $dir . '/**/';
-            $test_dir_names[] = $dir . '/**/**/';
-            $test_dir_names[] = $dir . '/**/**/**/';
-            $test_dir_names[] = $dir . '/**/**/**/**/';
-        }
-
-        return $test_dir_names;
-    }
-
-    /**
      * @return null|array
      */
     public function getUnitConfigSection()
@@ -261,11 +240,15 @@ final class JestUnitTestEngine extends ArcanistUnitTestEngine
             $lineCount = count($lines);
             /** @var string $file */
             $file           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $file);
-            $reports[$file] = str_repeat('U', $lineCount); // not covered by default
+            $reports[$file] = str_repeat('N', $lineCount);
 
-            foreach ($coverage['statementMap'] as $chunk) {
+            foreach ($coverage['statementMap'] as $statementIndex => $chunk) {
                 for ($i = $chunk['start']['line']; $i < $chunk['end']['line']; $i++) {
-                    $reports[$file][$i] = 'C';
+                    if ($coverage['s'][$statementIndex] > 0) {
+                        $reports[$file][$i] = 'C';
+                    } elseif ($coverage['s'][$statementIndex] === 0) {
+                        $reports[$file][$i] = 'U';
+                    }
                 }
             }
         }

@@ -24,7 +24,7 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
         $config  = $this->getUnitConfigSection();
         $command = array_key_exists('bin', $config)
             ? "{$config['bin']} "
-            : $this->getWorkingCopy()->getProjectRoot() . '/node_modules/.bin/vitest --json ';
+            : $this->getWorkingCopy()->getProjectRoot() . '/node_modules/.bin/vitest run --silent';
 
         if (true !== $config[self::FORCE_ALL_FLAG]) {
             $command .= implode(' ', array_unique($this->affectedTests));
@@ -33,7 +33,7 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
         // getEnableCoverage() returns either true, false, or null
         // true and false means it was explicitly turned on or off.  null means use the default
         if ($this->getEnableCoverage() !== false) {
-            $command .= ' --coverage';
+            $command .= ' --reporter=json --coverage.reporter=json --coverage.enabled=true';
         }
 
         $this->command = $command;
@@ -50,7 +50,7 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
     {
         $dir   = new RecursiveDirectoryIterator($this->projectRoot . $include);
         $ite   = new RecursiveIteratorIterator($dir);
-        $files = new RegexIterator($ite, '%\.{js|ts|tsx|jsx}%');
+        $files = new RegexIterator($ite, '/\.(js|ts|tsx|jsx)$/');
 
         $fileList = [];
         foreach ($files as $file) {
@@ -58,22 +58,6 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
         }
 
         return $fileList;
-    }
-
-    public function getSearchLocationsForTests(string $path): array
-    {
-        $test_dir_names = $this->getUnitConfigValue('test.dirs');
-        $test_dir_names = !empty($test_dir_names) ? $test_dir_names : ['tests', 'Tests'];
-
-        // including 5 levels of sub-dirs
-        foreach ($test_dir_names as $dir) {
-            $test_dir_names[] = $dir . '/**/';
-            $test_dir_names[] = $dir . '/**/**/';
-            $test_dir_names[] = $dir . '/**/**/**/';
-            $test_dir_names[] = $dir . '/**/**/**/**/';
-        }
-
-        return $test_dir_names;
     }
 
     /**
@@ -214,32 +198,115 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
 
     private function readCoverage(array $json_result): array
     {
-        if (empty($json_result) || !isset($json_result['coverageMap'])) {
+        // vitest stores the coverage data in a separate file, need to read that
+        // in and process that, which differs a little bit between the different
+        // coverage providers.
+        $coverageDir = $this->getUnitConfigValue('coverage.dir', 'coverage');
+        if (!$coverageDir) {
+            return [];
+        }
+
+        $coverageDir = $this->projectRoot . DIRECTORY_SEPARATOR . $coverageDir;
+        if (!is_dir($coverageDir)) {
+            return [];
+        }
+
+        $coverageFile = $coverageDir . DIRECTORY_SEPARATOR . 'coverage-final.json';
+        if (!file_exists($coverageFile)) {
+            return [];
+        }
+
+        $contents = file_get_contents($coverageFile);
+
+        if ($contents === false) {
+            return [];
+        }
+
+        $json_result = json_decode($contents, true);
+
+        switch ($this->getUnitConfigValue('coverage.provider')) {
+            case 'istanbul':
+                return $this->readIstanbulCoverage($json_result);
+            case 'v8':
+            default:
+                return $this->readV8Coverage($json_result);
+        }
+    }
+
+    private function readIstanbulCoverage(array $json_result): array
+    {
+        if (empty($json_result)) {
             return [];
         }
 
         $reports = [];
-        foreach ($json_result['coverageMap'] as $file => $coverage) {
-            $shouldSkip = str_contains($file, '__fixtures__')
-                || str_contains($file, '__mocks__')
-                || str_contains($file, 'spec')  ;
+        foreach ($json_result as $fileCoverage) {
+            $filePath   = $fileCoverage['path'];
+            $shouldSkip = str_contains($filePath, '__fixtures__')
+                || str_contains($filePath, '__mocks__')
+                || str_contains($filePath, 'spec')
+                || str_contains($filePath, '.test.');
 
             if ($shouldSkip) {
                 continue;
             }
 
-            $lines = file($file);
+            $lines = file($filePath);
             if ($lines === false) {
                 continue;
             }
             $lineCount = count($lines);
-            /** @var string $file */
-            $file           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $file);
-            $reports[$file] = str_repeat('U', $lineCount); // not covered by default
+            /** @var string $fileName */
+            $fileName           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $filePath);
+            $reports[$fileName] = str_repeat('N', $lineCount);
 
-            foreach ($coverage['statementMap'] as $chunk) {
+            foreach ($fileCoverage['statementMap'] as $statementIndex => $chunk) {
                 for ($i = $chunk['start']['line']; $i < $chunk['end']['line']; $i++) {
-                    $reports[$file][$i] = 'C';
+                    if ($fileCoverage['s'][$statementIndex] > 0) {
+                        $reports[$fileName][$i] = 'C';
+                    } elseif ($fileCoverage['s'][$statementIndex] == 0) {
+                        $reports[$fileName][$i] = 'U';
+                    }
+                }
+            }
+        }
+
+        return $reports;
+    }
+
+    private function readV8Coverage(array $json_result): array
+    {
+        if (empty($json_result)) {
+            return [];
+        }
+
+        $reports = [];
+        foreach ($json_result as $fileCoverage) {
+            $filePath   = $fileCoverage['path'];
+            $shouldSkip = str_contains($filePath, '__fixtures__')
+                || str_contains($filePath, '__mocks__')
+                || str_contains($filePath, 'spec')
+                || str_contains($filePath, '.test.');
+
+            if ($shouldSkip) {
+                continue;
+            }
+
+            $lines = file($filePath);
+            if ($lines === false) {
+                continue;
+            }
+            $lineCount = count($lines);
+            /** @var string $fileName */
+            $fileName           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $filePath);
+            $reports[$fileName] = str_repeat('N', $lineCount); // not covered by default
+
+            foreach ($fileCoverage['statementMap'] as $chunk) {
+                $lineNum = $chunk['start']['line'];
+                if ($fileCoverage['s'][($lineNum - 1)] > 0) {
+                    $reports[$fileName][$lineNum - 1] = 'C';
+                } elseif ($fileCoverage['s'][($lineNum - 1)] == 0) {
+                    $reports[$fileName][$lineNum - 1] = 'U';
                 }
             }
         }
