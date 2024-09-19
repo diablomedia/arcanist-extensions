@@ -33,7 +33,7 @@
     "diablomedia/php-cs-fixer-config": "^2.1.0",
     "friendsofphp/php-cs-fixer": "3.6.0",
     "phorgeit/arcanist": "1.0.0",
-    "phpstan/phpstan": "1.12.1"
+    "phpstan/phpstan": "1.12.4"
   },
   "autoload-dev": {
     "classmap": [
