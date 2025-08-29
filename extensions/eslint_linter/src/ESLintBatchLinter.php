@@ -19,7 +19,7 @@
 /**
  * Lints JavaScript and JSX files using ESLint
  */
-final class ESLintLinter extends ArcanistExternalLinter
+final class ESLintBatchLinter extends ArcanistExternalLinter
 {
     const ESLINT_ERROR = '2';
 

@@ -8,4 +8,4 @@ parameters:
         -
             message: '#Parameter .3 \$default of function idx expects wild\|null, string given\.#'
             count: 1
-            path: 'extensions/eslint_linter/src/ESLintLinter.php'
+            path: 'extensions/eslint_linter/src/ESLintBatchLinter.php'

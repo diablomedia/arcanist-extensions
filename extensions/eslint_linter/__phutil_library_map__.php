@@ -9,10 +9,10 @@
 phutil_register_library_map(array(
   '__library_version__' => 2,
   'class' => array(
-    'ESLintLinter' => 'src/ESLintLinter.php',
+    'ESLintBatchLinter' => 'src/ESLintBatchLinter.php',
   ),
   'function' => array(),
   'xmap' => array(
-    'ESLintLinter' => 'ArcanistExternalLinter',
+    'ESLintBatchLinter' => 'ArcanistExternalLinter',
   ),
 ));

@@ -10,7 +10,7 @@ phutil_register_library_map(array(
   '__library_version__' => 2,
   'class' => array(
     'ComposerValidateLinter' => 'composer_validate_linter/src/ComposerLinter.php',
-    'ESLintLinter' => 'eslint_linter/src/ESLintLinter.php',
+    'ESLintBatchLinter' => 'eslint_linter/src/ESLintBatchLinter.php',
     'JestUnitTestEngine' => 'jest_unit_test_engine/src/JestUnitTestEngine.php',
     'LintMessageBuilder' => 'php_cs_fixer_linter/src/Linter/LintMessageBuilder.php',
     'MultiTestEngine' => 'multi_test_engine/src/MultiTestEngine.php',
@@ -21,7 +21,7 @@ phutil_register_library_map(array(
   'function' => array(),
   'xmap' => array(
     'ComposerValidateLinter' => 'ArcanistExternalLinter',
-    'ESLintLinter' => 'ArcanistExternalLinter',
+    'ESLintBatchLinter' => 'ArcanistExternalLinter',
     'JestUnitTestEngine' => 'ArcanistUnitTestEngine',
     'MultiTestEngine' => 'ArcanistUnitTestEngine',
     'PhpCsFixerLinter' => 'ArcanistExternalLinter',
