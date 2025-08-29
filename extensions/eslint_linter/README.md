@@ -20,7 +20,7 @@ This library integrates [ESLint](https://eslint.org) as lint engine to `arcanist
         "--concurrency=auto",
         "--cache"
     ],
-    "bin": "./node_modules/.bin/esling"
+    "bin": "./node_modules/.bin/eslint"
 },
 ```
 
