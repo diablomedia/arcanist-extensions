@@ -301,11 +301,16 @@ final class VitestUnitTestEngine extends ArcanistUnitTestEngine
             $fileName           = str_replace($this->projectRoot . DIRECTORY_SEPARATOR, '', $filePath);
             $reports[$fileName] = str_repeat('N', $lineCount); // not covered by default
 
-            foreach ($fileCoverage['statementMap'] as $chunk) {
+            foreach ($fileCoverage['statementMap'] as $statementIndex => $chunk) {
                 $lineNum = $chunk['start']['line'];
-                if ($fileCoverage['s'][($lineNum - 1)] > 0) {
+                if (!array_key_exists($statementIndex, $fileCoverage['s'])) {
+                    continue;
+                }
+
+                $count = $fileCoverage['s'][$statementIndex];
+                if ($count > 0) {
                     $reports[$fileName][$lineNum - 1] = 'C';
-                } elseif ($fileCoverage['s'][($lineNum - 1)] == 0) {
+                } elseif ($count == 0 && $reports[$fileName][$lineNum - 1] !== 'C') {
                     $reports[$fileName][$lineNum - 1] = 'U';
                 }
             }
