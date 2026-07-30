@@ -15,13 +15,13 @@
         "name": "phorgeit/arcanist",
         "version": "1.0.0",
         "dist": {
-          "url": "https://github.com/phorgeit/arcanist/archive/master.zip",
+          "url": "https://github.com/phorgeit/arcanist/archive/5d3f910dfa2927d740cec7c49287d6d5b0422dc4.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/phorgeit/arcanist.git",
           "type": "git",
-          "reference": "master"
+          "reference": "5d3f910dfa2927d740cec7c49287d6d5b0422dc4"
         }
       }
     }

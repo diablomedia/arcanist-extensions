@@ -4,7 +4,7 @@ final class VitestUnitTestEngineTestCase extends PhutilTestCase
 {
     public function testReadV8CoverageIgnoresMissingStatementCounters(): void
     {
-        $this->assertEqual(
+        $this->assertCoverageEqual(
             'N',
             $this->readCoverage(
                 [
@@ -18,7 +18,7 @@ final class VitestUnitTestEngineTestCase extends PhutilTestCase
 
     public function testReadV8CoveragePreservesCoveredLine(): void
     {
-        $this->assertEqual(
+        $this->assertCoverageEqual(
             'CN',
             $this->readCoverage(
                 [
@@ -36,7 +36,7 @@ final class VitestUnitTestEngineTestCase extends PhutilTestCase
 
     public function testReadV8CoverageReportsZeroCountsAsUncovered(): void
     {
-        $this->assertEqual(
+        $this->assertCoverageEqual(
             'NU',
             $this->readCoverage(
                 [
@@ -52,7 +52,7 @@ final class VitestUnitTestEngineTestCase extends PhutilTestCase
 
     public function testReadV8CoverageUsesStatementIndexes(): void
     {
-        $this->assertEqual(
+        $this->assertCoverageEqual(
             'CUN',
             $this->readCoverage(
                 [
@@ -65,6 +65,13 @@ final class VitestUnitTestEngineTestCase extends PhutilTestCase
                 ]
             )
         );
+    }
+
+    private function assertCoverageEqual(string $expected, string $actual): void
+    {
+        // The pinned Arcanist release uses its legacy "wild" PHPDoc type.
+        // @phpstan-ignore-next-line
+        $this->assertEqual($expected, $actual);
     }
 
     private function readCoverage(
