@@ -6,9 +6,23 @@ updates:
           interval: daily
       cooldown:
           default-days: 7
+      groups:
+          non-major:
+              patterns:
+                  - '*'
+              update-types:
+                  - minor
+                  - patch
     - package-ecosystem: github-actions
       directory: '/'
       schedule:
           interval: daily
       cooldown:
           default-days: 7
+      groups:
+          non-major:
+              patterns:
+                  - '*'
+              update-types:
+                  - minor
+                  - patch
