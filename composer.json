@@ -28,7 +28,7 @@
   ],
   "require": {
     "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
-    "ptlis/diff-parser": "^0.6.0"
+    "ptlis/diff-parser": "^1.1.0"
   },
   "require-dev": {
     "diablomedia/php-cs-fixer-config": "^2.1.0",
