@@ -129,6 +129,9 @@ final class OxlintLinterTestCase extends PhutilTestCase
         }
     }
 
+    /**
+     * @param list<string> $paths
+     */
     private function assertCommandFails(OxlintLinter $linter, array $paths): void
     {
         $caught = false;
