@@ -10,10 +10,12 @@ phutil_register_library_map(array(
   '__library_version__' => 2,
   'class' => array(
     'LintMessageBuilder' => 'src/Linter/LintMessageBuilder.php',
+    'LintMessageBuilderTestCase' => 'src/__tests__/LintMessageBuilderTestCase.php',
     'PhpCsFixerLinter' => 'src/Linter/PhpCsFixerLinter.php',
   ),
   'function' => array(),
   'xmap' => array(
+    'LintMessageBuilderTestCase' => 'PhutilTestCase',
     'PhpCsFixerLinter' => 'ArcanistExternalLinter',
   ),
 ));

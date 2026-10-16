@@ -70,24 +70,24 @@ class LintMessageBuilder
 
     private function doBuildLintMessages(string $path, array $fixData): array
     {
-        $changeSet = (new Parser())->parseLines(explode("\n", $fixData['diff']));
+        $changeSet = (new Parser())->parse($fixData['diff']);
 
         /** @var \ArcanistLintMessage[] $messages */
         $messages = [];
 
         $addedOffset = 0;
-        foreach ($changeSet->getFiles() as $file) {
-            foreach ($file->getHunks() as $hunk) {
-                foreach ($hunk->getLines() as $line) {
-                    if ($line->getOperation() === Line::UNCHANGED) {
+        foreach ($changeSet->files as $file) {
+            foreach ($file->hunks as $hunk) {
+                foreach ($hunk->lines as $line) {
+                    if ($line->operation === Line::UNCHANGED) {
                         continue;
                     }
 
                     $message = null;
-                    if ($line->getOperation() === Line::ADDED) {
-                        $lineNo = $line->getNewLineNo() - $addedOffset;
+                    if ($line->operation === Line::ADDED) {
+                        $lineNo = $line->newLineNo - $addedOffset;
                     } else {
-                        $lineNo = $line->getOriginalLineNo();
+                        $lineNo = $line->originalLineNo;
                     }
 
                     if (isset($messages[$lineNo])) {
@@ -103,15 +103,15 @@ class LintMessageBuilder
                         $message->setChar(1);
                         $message->setLine($lineNo);
 
-                        if ($line->getOperation() === Line::ADDED) {
+                        if ($line->operation === Line::ADDED) {
                             $addedOffset++;
                         }
                     }
-                    if ($line->getOperation() === Line::ADDED) {
-                        $message->setReplacementText($line->getContent());
+                    if ($line->operation === Line::ADDED) {
+                        $message->setReplacementText($line->content);
                     }
-                    if ($line->getOperation() === Line::REMOVED) {
-                        $message->setOriginalText($line->getContent());
+                    if ($line->operation === Line::REMOVED) {
+                        $message->setOriginalText($line->content);
                     }
                     $messages[$message->getLine()] = $message;
                 }
