@@ -12,7 +12,7 @@ final class OxfmtLinter extends ArcanistExternalLinter
         return 'Oxfmt';
     }
 
-    public function getInfoURI()
+    public function getInfoURI(): string
     {
         return 'https://oxc.rs/docs/guide/usage/formatter.html';
     }

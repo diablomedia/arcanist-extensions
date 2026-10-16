@@ -12,7 +12,7 @@ final class OxlintLinter extends ArcanistExternalLinter
         return 'Oxlint';
     }
 
-    public function getInfoURI()
+    public function getInfoURI(): string
     {
         return 'https://oxc.rs/docs/guide/usage/linter.html';
     }

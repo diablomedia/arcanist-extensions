@@ -36,7 +36,7 @@ final class ESLintBatchLinter extends ArcanistExternalLinter
     protected $eslintBin;
 
     /**
-     * @var array
+     * @var list<string>
      */
     private $flags = [];
 
@@ -53,7 +53,7 @@ final class ESLintBatchLinter extends ArcanistExternalLinter
         );
     }
 
-    public function getInfoDescription()
+    public function getInfoDescription(): string
     {
         return pht('The pluggable linting utility for JavaScript and JSX');
     }
@@ -63,7 +63,7 @@ final class ESLintBatchLinter extends ArcanistExternalLinter
         return 'ESLint';
     }
 
-    public function getInfoURI()
+    public function getInfoURI(): string
     {
         return 'https://eslint.org/';
     }

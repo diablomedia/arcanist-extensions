@@ -46,9 +46,9 @@ final class ComposerValidateLinter extends ArcanistExternalLinter
     }
 
     /**
-     * @return string|null Optionally, return a brief human-readable description.
+     * @return string A brief human-readable description.
      */
-    public function getInfoDescription()
+    public function getInfoDescription(): string
     {
         return pht('A linter for composer.json & composer.lock files.');
     }
@@ -62,9 +62,9 @@ final class ComposerValidateLinter extends ArcanistExternalLinter
     }
 
     /**
-     * @return string|null Optionally, return a brief human-readable description.
+     * @return string Human-readable install instructions.
      */
-    public function getInstallInstructions()
+    public function getInstallInstructions(): string
     {
         return pht('Install composer: https://getcomposer.org/download/');
     }

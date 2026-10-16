@@ -130,7 +130,6 @@ class LintMessageBuilder
         $diffParts = [];
         $parts     = explode('@@ @@', $diff);
         array_shift($parts);
-        $parts = array_values($parts);
         foreach ($parts as $key => $part) {
             $parts[$key] = array_map('trim', explode("\n", trim($part)));
         }
