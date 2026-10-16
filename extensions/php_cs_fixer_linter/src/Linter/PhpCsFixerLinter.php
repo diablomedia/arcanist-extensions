@@ -8,7 +8,7 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
     private $configFile = null;
 
     /**
-     * @var array
+     * @var list<string>
      */
     private $defaultFlags = [
         '--verbose',
@@ -120,7 +120,9 @@ class PhpCsFixerLinter extends ArcanistExternalLinter
         $json     = phutil_json_decode($stdout);
         $messages = [];
         foreach ($json['files'] as $fix) {
-            $messages = array_merge($messages, $this->lintMessageBuilder->buildLintMessages($path, $fix));
+            foreach ($this->lintMessageBuilder->buildLintMessages($path, $fix) as $message) {
+                $messages[] = $message;
+            }
         }
 
         return $messages;

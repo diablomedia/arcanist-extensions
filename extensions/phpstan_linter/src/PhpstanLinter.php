@@ -170,7 +170,7 @@ final class PhpstanLinter extends ArcanistLinter
     }
 
     /**
-     * @return string|null|false
+     * @return string|false
      */
     public function getVersion()
     {
