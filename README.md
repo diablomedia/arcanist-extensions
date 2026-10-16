@@ -36,6 +36,8 @@ To configure the extension to run in your arcanist project, please reference eac
 ## Extensions Included
 
 - Linters
+  - [Oxfmt](extensions/oxfmt_linter/README.md) - Offers whole-file Oxfmt formatting patches
+  - [Oxlint](extensions/oxlint_linter/README.md) - Runs Oxlint in batches and reports JSON diagnostics
   - [Composer Validate](extensions/composer_validate_linter/README.md) - Validate composer.json and composer.lock files (using `composer --validate` command)
   - [PHP CS Fixer](extensions/php_cs_fixer_linter/README.md) - Runs [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer)
   - [PHPStan](extensions/phpstan_linter/README.md) - Runs [PHPStan](https://github.com/phpstan/phpstan)
@@ -47,3 +49,8 @@ To configure the extension to run in your arcanist project, please reference eac
 ## Acknowledgements
 
 Some of these linters come from forks of other linters found on github that are generally not maintained anymore (or we forked due to some difference in functionality that worked better for us). Check out the README for each linter, which will link back to the original project.
+
+## Development
+
+Run `composer install`, `composer test`, `composer phpstan`, and `PHP_CS_FIXER_IGNORE_ENV=1 composer php-cs-fixer -- --dry-run --diff`.
+Tests use the pinned Arcanist `PhutilTestCase` framework and include the existing Vitest coverage tests. Install/enable Xdebug with `XDEBUG_MODE=coverage` to include source coverage in `composer test`; CI enables it across the existing PHP 8.0–8.3 dependency matrix. Without Xdebug the tests still run, without coverage.

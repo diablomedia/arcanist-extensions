@@ -1,0 +1,7 @@
+{ "diagnostics": [{"message": "Unexpected token","severity": "error","filename": "syntax.js","labels": [{"span": {"offset": 6,"length": 1,"line": 1,"column": 7}}]}],
+              "number_of_files": 1,
+              "number_of_rules": 96,
+              "threads_count": 14,
+              "start_time": 0.005802125
+            }
+            
