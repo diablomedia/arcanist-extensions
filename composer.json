@@ -45,6 +45,6 @@
   "scripts": {
     "phpstan": "phpstan analyze -c phpstan.neon --memory-limit=768M",
     "php-cs-fixer": "php-cs-fixer fix --verbose",
-    "test": "vendor/phorgeit/arcanist/bin/arc --load-phutil-library=extensions/oxfmt_linter --load-phutil-library=extensions/oxlint_linter --load-phutil-library=extensions/vitest_unit_test_engine unit --engine PhutilUnitTestEngine -- extensions/oxfmt_linter/src/OxfmtLinter.php extensions/oxlint_linter/src/OxlintLinter.php extensions/vitest_unit_test_engine/src/VitestUnitTestEngine.php"
+    "test": "vendor/phorgeit/arcanist/bin/arc --load-phutil-library=extensions/oxfmt_linter --load-phutil-library=extensions/oxlint_linter --load-phutil-library=extensions/vitest_unit_test_engine --load-phutil-library=extensions/php_cs_fixer_linter unit --engine PhutilUnitTestEngine -- extensions/oxfmt_linter/src/OxfmtLinter.php extensions/oxlint_linter/src/OxlintLinter.php extensions/vitest_unit_test_engine/src/VitestUnitTestEngine.php extensions/php_cs_fixer_linter/src/Linter/LintMessageBuilder.php"
   }
 }
